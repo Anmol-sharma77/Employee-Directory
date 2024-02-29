@@ -17,8 +17,8 @@ function handleSubmit() {
         body:JSON.stringify({username:username.value,password:password.value,email:email.value})
       }).then(function(response){
         if(response.status==200)
-        window.location.href="/home"
-        else alert("Wrong Username or Password");
+        window.location.href="/login"
+        else alert("Already exist");
       })
   }catch(err)
   {

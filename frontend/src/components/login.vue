@@ -4,14 +4,14 @@ defineProps({
   msg: String,
 })
 console.log("hello")
-const username = ref('')
+const mail = ref('')
 const password = ref('')
 function handleSubmit() {
   console.log('Form submitted');
   fetch('http://127.0.0.1:5000/login',{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({username:username.value,password:password.value})
+    body:JSON.stringify({mail:mail.value,password:password.value})
   }).then(function(response){
     if(response.status==200)
     window.location.href="/home"
@@ -24,7 +24,7 @@ function handleSubmit() {
   <div class="login-container">
     <h2>Login Page</h2>
     <form @submit.prevent="handleSubmit" class="login-form">
-      <input required type="text" name="mail" placeholder="Email" v-model="username">
+      <input required type="text" name="mail" placeholder="Email" v-model="mail">
       <input required type="password" name="password" placeholder="Password" v-model="password">
       <button type="submit" id="btn">Login</button>
     </form>
