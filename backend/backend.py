@@ -34,6 +34,25 @@ def signup():
         print(e)
         return make_response('', 400)
 
+@app.route('/data', methods=['GET'])
+def data():
+    query="select * from employee"
+    cursor.execute(query)
+    result=cursor.fetchall()
+    employee_data = []
+    for row in result:
+        employee = {
+            "Employee_id": row[0],
+            "name": row[1],
+            "department": row[2],
+            "position": row[3],
+            "email": row[4],
+            "phone_num": row[5]
+        }
+        employee_data.append(employee)
+    return jsonify(employee_data)
+    
+
 
 @app.route('/login', methods=['POST'])
 def login():
