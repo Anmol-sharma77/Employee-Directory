@@ -3,6 +3,8 @@ import login from '../components/login.vue';
 import signup from '../components/signup.vue';
 import notfound from '../components/404.vue';
 import home from '../components/home.vue';
+import add from '../components/add.vue';
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -10,8 +12,9 @@ const router = createRouter({
     { path: '/', component:login},
     { path: '/login', component: login },
     {path:'/signup',component: signup},
+    {path:'/addemployee',component:add},
+    {path:'/home',component:home},
     { path: '/:catchAll(.*)', component: notfound },
-    {path:'/home',component:home}
   ]
 });
 

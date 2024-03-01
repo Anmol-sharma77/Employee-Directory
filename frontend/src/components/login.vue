@@ -1,22 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 defineProps({
   msg: String,
 })
 console.log("hello")
 const mail = ref('')
 const password = ref('')
-function handleSubmit() {
+async function handleSubmit() {
   console.log('Form submitted');
-  fetch('http://127.0.0.1:5000/login',{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({mail:mail.value,password:password.value})
-  }).then(function(response){
-    if(response.status==200)
-    window.location.href="/home"
-    else alert("Wrong Username or Password");
-  })
+  try{
+    const response = await fetch('http://127.0.0.1:5000/login',{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({mail:mail.value,password:password.value})
+    })
+    const data = await response.json();
+    const token=data.token;
+    const user=data.user;
+    window.localStorage.setItem( "token" , token );
+    window.localStorage.setItem( "user" , JSON.stringify(user) );
+    alert(`Welcome back ${user.name}!`);
+    location.href="./home";
+    }catch (error) {
+      alert( "Wrong Credentials" );
+       console.error('Error fetching employee data:', error);
+    }
 }
 </script>
 
